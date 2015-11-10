@@ -11,9 +11,9 @@ app.set('port', process.env.PORT || 5000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended : true}));
 
-//mongoose.connect('mongodb://localhost/angular_practice_project');
-//
-//var Person = mongoose.model('person', new Schema({name: String}));
+mongoose.connect('mongodb://localhost/angular_practice_project');
+
+var Person = mongoose.model('person', new Schema({name: String}));
 
 app.get('/people', function(req, res){
     Person.find({}, function(err, data){
@@ -21,6 +21,17 @@ app.get('/people', function(req, res){
         res.send(data);
     });
 });
+// I don't think I built the mongo database angular_practice_project
+
+
+app.post('/people', function(req, res){
+    var person = new Person({name: req.body.name});
+    person.save(function(err, data){
+        if (err) console.log("err", err);
+        res.send(data);
+    })
+});
+
 
 app.get('/*', function(req, res){
     var file = req.params[0] || "views/index.html";

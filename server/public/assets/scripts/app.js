@@ -9,10 +9,11 @@ myApp.controller("WelcomeController", ['$scope', '$http', function($scope, $http
 
 
 
-
-    $scope.test = function(){
-      console.log("this is scope.note ",$scope.note);
-        console.log("this is scope.nameArray ",$scope.nameArray);
+    //POST
+    $scope.clickButton = function(kittyFooFoo) {
+        $http.post('/people', kittyFooFoo).then(function(response){
+            $scope.getPeople();
+        });
     };
 
     //GET
@@ -22,8 +23,15 @@ myApp.controller("WelcomeController", ['$scope', '$http', function($scope, $http
         });
     };
 
+    $scope.test = function(){
+        console.log("this is scope.note ",$scope.note);
+        console.log("this is scope.nameArray ",$scope.nameArray);
+        console.log("this is kittyFoo ",kittyFooFoo);
+    };
+
 
     $scope.getPeople();
-    $scope.test();
+    //$scope.test();
 //end welcome controller
 }]);
+
